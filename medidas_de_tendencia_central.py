@@ -148,7 +148,7 @@ def mad(datos):
     dma = mediana(numeros)(desviaciones_absolutas)                           
                                 
     return dma
-def desviacion_estandar(datos):
+def desviacion_estandar(x):
     '''Funcion que calcula la desviacion estandar de cierta cantidad de datos
     Entrada
     -------
@@ -158,9 +158,36 @@ def desviacion_estandar(datos):
     -------
     desv : retorna la desviación estándar
     '''
-    vari = varianza(lista)
+    vari = varianza(x)
     desv = math.sqrt(varianza)
 
     return desv
+def percentil(x, per):
+    '''Funcion que calcula el percentil de una lista de datos
+    Entrada
+    -------
+    x : lista de datos
+    per : percentil que se desa calcular (1-100)
+
+    Salida
+    ------
+    EL percentil calculado
+    '''
+    datos = sorted(x)
+    n = len(datos)
+
+    if n == 0:
+        return None
+
+    k = (percentil / 100) * (n - 1)
+    f = math.floor(k)
+    c = math.ceil(k)
+
+    if f == c:
+        return datos[int(k)]
+    d = datos[f] * (c - k)
+    d1 = datos[c] * (k - f)
+    return d + d1
+
 
 
