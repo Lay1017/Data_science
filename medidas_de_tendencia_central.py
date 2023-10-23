@@ -92,7 +92,7 @@ def varianza(x):
     var: calcula la varianza dividiendo la suma de los cuadrados de las diferencias por el numero de datos
     '''
     media = sum(x) / len(x)
-    suma = sum((n - media) ** 2 for n in lista)
+    suma = sum((n - media) ** 2 for n in x)
     var = suma / len(x)
     return var
 def cuartiles(x):
