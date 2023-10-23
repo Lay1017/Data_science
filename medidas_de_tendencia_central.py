@@ -160,7 +160,7 @@ def desviacion_estandar(x):
     desv : retorna la desviación estándar
     '''
     vari = varianza(x)
-    desv = math.sqrt(varianza)
+    desv = math.sqrt(vari)
 
     return desv
 def percentil(x, per):
