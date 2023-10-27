@@ -9,7 +9,7 @@ def promedio(x):
     ------
     prom : suma de todos los numeros dividida en su cantidad
     '''
-    x_nan = [valor for valor in x if not mat.isnan(valor)]
+    x_nan = [valor for valor in x if not math.isnan(valor)]
     if len(x_nan) == 0:
         return 0
     suma = sum(x_nan)
@@ -56,13 +56,13 @@ def mediana(x):
     ------
     mediana : identifica si la cantidad de numeros es par o impar y retorna su mediana
     '''
-    lista = sorted(x)
-    n = len(lista)
+    x.sort()
+    n = len(x)
     
-    if n % 2 == 1:
-        median = lista[n // 2]
+    if n % 2 != 0:
+        median = x[(n + 1) // 2]
     else:
-        median = (lista[(n // 2) - 1] + lista[n // 2]) / 2
+        median = (x[(n // 2) - 1] + x[n // 2]) / 2
     return median
 def rango(x):
     ''' Función que retorna el rango de una serie de datos
@@ -91,9 +91,12 @@ def varianza(x):
     ------
     var: calcula la varianza dividiendo la suma de los cuadrados de las diferencias por el numero de datos
     '''
-    media = sum(x) / len(x)
-    suma = sum((n - media) ** 2 for n in x)
-    var = suma / len(x)
+    x_nan = [valor for valor in x if not math.isnan(valor)]
+    m = promedio(x_nan)
+    n = len(x_nan)
+    var = 0
+    for k in range(n):
+        var += ((x_nan[k] - m) **2) / n
     return var
 def cuartiles(x):
     '''Funcion que calcula los cuartiles de una serie de datos
@@ -144,6 +147,7 @@ def mad(x):
     ------
     dma : calcula la mediana, su desviación absoluta y luego la mediana de su desviacion absoluta
     '''
+    x_nan = [valor for valor in x if not math.isnan(valor)]
     median = mediana(x)
     desviaciones_absolutas = [abs(n - median) for n in x]
     dma = mediana(desviaciones_absolutas)                           
@@ -159,7 +163,8 @@ def desviacion_estandar(x):
     -------
     desv : retorna la desviación estándar
     '''
-    vari = varianza(x)
+    x_nan = [valor for valor in x if not math.isnan(valor)]
+    vari = varianza(x_nan)
     desv = math.sqrt(vari)
 
     return desv
@@ -180,7 +185,7 @@ def percentil(x, per):
     if n == 0:
         return None
 
-    k = (percentil / 100) * (n - 1)
+    k = (per / 100) * (n - 1)
     f = math.floor(k)
     c = math.ceil(k)
 
@@ -189,6 +194,7 @@ def percentil(x, per):
     d = datos[f] * (c - k)
     d1 = datos[c] * (k - f)
     return d + d1
+
 
 
 
